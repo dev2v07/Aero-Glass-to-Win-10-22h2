@@ -48,7 +48,7 @@ UsePreviousGroup=yes
 AllowNoIcons=yes
 LicenseFile={#MyProjPath}\LICENSE.txt
 SetupIconFile={#MyProjPath}\OpenGlassGUI\assets\aero-glass.ico
-WizardImageFile={#MyProjPath}\assets\preview2-wizard.bmp
+WizardImageFile={#MyProjPath}\assets\finish-panel.bmp
 WizardSmallImageFile={#MyProjPath}\OpenGlassGUI\assets\aero-glass-icon.png
 OutputDir={#MyAppOutputPath}
 OutputBaseFilename={#MyAppSetupName}
@@ -285,29 +285,36 @@ begin
   if Assigned(Preview1Image) then
     Exit;
 
-  PreviewLeft := WizardForm.FinishedPage.Width - ScaleX(230) - ScaleX(18);
-  PreviewTop := ScaleY(42);
+  PreviewLeft := WizardForm.WizardBitmapImage.Left + ScaleX(7);
+  PreviewTop := WizardForm.WizardBitmapImage.Top + ScaleY(18);
 
-  Preview1Image := TBitmapImage.Create(WizardForm.FinishedPage);
-  Preview1Image.Parent := WizardForm.FinishedPage;
+  Preview1Image := TBitmapImage.Create(WizardForm);
+  Preview1Image.Parent := WizardForm;
   Preview1Image.AutoSize := False;
   Preview1Image.Stretch := True;
-  Preview1Image.SetBounds(PreviewLeft, PreviewTop, ScaleX(230), ScaleY(120));
+  Preview1Image.SetBounds(PreviewLeft, PreviewTop, ScaleX(150), ScaleY(80));
   Preview1Image.Bitmap.LoadFromFile(ExpandConstant('{app}\assets\previews\preview1-finish.bmp'));
+  Preview1Image.Visible := False;
 
-  Preview2Image := TBitmapImage.Create(WizardForm.FinishedPage);
-  Preview2Image.Parent := WizardForm.FinishedPage;
+  Preview2Image := TBitmapImage.Create(WizardForm);
+  Preview2Image.Parent := WizardForm;
   Preview2Image.AutoSize := False;
   Preview2Image.Stretch := True;
-  Preview2Image.SetBounds(PreviewLeft, PreviewTop + ScaleY(126), ScaleX(230), ScaleY(120));
+  Preview2Image.SetBounds(PreviewLeft, PreviewTop + ScaleY(84), ScaleX(150), ScaleY(80));
   Preview2Image.Bitmap.LoadFromFile(ExpandConstant('{app}\assets\previews\preview2-finish.bmp'));
+  Preview2Image.Visible := False;
 
-  Preview3Image := TBitmapImage.Create(WizardForm.FinishedPage);
-  Preview3Image.Parent := WizardForm.FinishedPage;
+  Preview3Image := TBitmapImage.Create(WizardForm);
+  Preview3Image.Parent := WizardForm;
   Preview3Image.AutoSize := False;
   Preview3Image.Stretch := True;
-  Preview3Image.SetBounds(PreviewLeft, PreviewTop + ScaleY(252), ScaleX(230), ScaleY(120));
+  Preview3Image.SetBounds(PreviewLeft, PreviewTop + ScaleY(168), ScaleX(150), ScaleY(80));
   Preview3Image.Bitmap.LoadFromFile(ExpandConstant('{app}\assets\previews\preview3-finish.bmp'));
+  Preview3Image.Visible := False;
+
+  Preview1Image.Visible := True;
+  Preview2Image.Visible := True;
+  Preview3Image.Visible := True;
 end;
 
 procedure InitializeWizard;
