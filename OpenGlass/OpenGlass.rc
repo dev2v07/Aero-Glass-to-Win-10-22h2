@@ -1,0 +1,231 @@
+// Microsoft Visual C++ generated resource script.
+//
+#pragma code_page(65001)
+
+#include "resource.h"
+#include "OpenGlassVersion.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "winres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Neutral (Default) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEUD)
+LANGUAGE LANG_NEUTRAL, SUBLANG_DEFAULT
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// PNG
+//
+
+IDB_REFLECTION          PNG                     "reflection.png"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION OPENGLASS_PRODUCT_VERSION
+ PRODUCTVERSION OPENGLASS_PRODUCT_VERSION
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040004b0"
+        BEGIN
+            VALUE "CompanyName", "ALTaleX"
+            VALUE "FileDescription", "Aero Glass Extension for Desktop Window Manager (" OPENGLASS_DWM_ARCHITECTURE ")"
+            VALUE "FileVersion", OPENGLASS_PRODUCT_VERSION_STRING
+            VALUE "InternalName", "Aero Glass for Win10+"
+            VALUE "LegalCopyright", "Copyright (C) 2024-2026 ALTaleX531"
+            VALUE "OriginalFilename", "OpenGlass.dll"
+            VALUE "ProductName", "OpenGlass"
+            VALUE "ProductVersion", OPENGLASS_PRODUCT_VERSION_STRING
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x400, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// RCDATA
+//
+
+IDR_RCDATA_AEROCOLORIZATION_PS RCDATA                  "AeroColorizationEffect.cso"
+
+IDR_RCDATA_BLUR_VS      RCDATA                  "Blur.VS.cso"
+
+IDR_RCDATA_BLUR_PS_BLURH RCDATA                  "Blur.PS_BlurH.cso"
+
+IDR_RCDATA_BLUR_PS_BLURV RCDATA                  "Blur.PS_BlurV.cso"
+
+IDR_RCDATA_BLUR_PS_BLURV_VISTA RCDATA                  "Blur.PS_BlurV_Vista.cso"
+
+#endif    // Neutral (Default) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (Simplified, China) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE
+BEGIN
+    "#include ""winres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_STRING101           "OpenGlass 兼容性问题"
+    IDS_STRING102           "预留"
+    IDS_STRING103           "显示详细信息"
+    IDS_STRING104           "隐藏详细信息"
+    IDS_STRING105           "该版本的 OpenGlass 不支持您的系统版本。\n是否仍要继续？"
+    IDS_STRING106           "OpenGlass 无法挂钩您当前系统版本的 DWM (0x%X)。\n\n我们已尝试从微软服务器下载对应的符号文件，但失败了。\n请不要因此在 GitHub 上提交 Issue，您将不会获得相关支持。\n建议改用 OpenGlassGUI 的符号下载功能。\n\n您现在想重试吗？"
+    IDS_STRING107           "OpenGlass 无法挂钩您当前系统版本的 DWM (0x%X)。\n\n我们已尝试解析符号文件，但是失败了。\n您现在想重试吗？"
+    IDS_STRING108           "OpenGlass 无法挂钩您当前系统版本的 DWM。\n\n!!! 这不是BUG而是尚未支持你的系统 !!!"
+    IDS_STRING109           "DWM 在注入后不到 15 秒就发生崩溃，DLL 注入已暂停。\n\n要关闭 OpenGlass 服务进程并停止所有后续注入，请单击“中止”。\n要再次尝试注入，请单击“重试”。\n要排除此 DWM 进程，请点击“忽略”。"
+    IDS_STRING110           "预留"
+    IDS_STRING111           "正在下载符号文件..."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STRING112           "稍等..."
+END
+
+#endif    // Chinese (Simplified, China) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (Traditional, Taiwan) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHT)
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_TRADITIONAL
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_STRING101           "OpenGlass 相容性問題"
+    IDS_STRING102           "預留"
+    IDS_STRING103           "顯示詳細資訊"
+    IDS_STRING104           "隱藏詳細資訊"
+    IDS_STRING105           "該版本的 OpenGlass 不支援閣下的系統版本。\n是否仍要繼續？"
+    IDS_STRING106           "OpenGlass 無法掛鉤閣下當前系統版本的 DWM (0x%X) 。\n\n我們已嘗試從 Microsoft 伺服器下載對應的符號檔案，但失敗了。\n請勿因此在 GitHub 上提交 Issue，閣下將不會得到相關支援。\n建議改用 OpenGlassGUI 的符號下載功能。\n\n閣下現在想重試嗎？"
+    IDS_STRING107           "OpenGlass 無法掛鉤閣下當前系統版本的 DWM (0x%X) 。\n\n我們已嘗試解析符號檔案，但是失敗了。\n閣下現在想重試嗎？"
+    IDS_STRING108           "OpenGlass 無法掛鉤閣下當前系統版本的 DWM。\n\n!!! 這不是BUG而是目尚未支援你的系統 !!!"
+    IDS_STRING109           "DWM 在注入後不到 15 秒即崩潰，DLL 注入已暫停。\n\n要關閉 OpenGlass 服務進程並停止所有後續注入，請按一下“中止”。\n要再次嘗試注入，請按一下“重試”。\n要排除這個 DWM 進程，請按一下“忽略”。"
+    IDS_STRING110           "預留"
+    IDS_STRING111           "正在下載符號檔案..."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STRING112           "稍等..."
+END
+
+#endif    // Chinese (Traditional, Taiwan) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (Neutral) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_NEUTRAL
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_STRING101           "OpenGlass Incompatibility issue"
+    IDS_STRING102           "Reserved"
+    IDS_STRING103           "Show details"
+    IDS_STRING104           "Hide details"
+    IDS_STRING105           "Your system version is NOT supported by this version of OpenGlass. \nContinue anyway?"
+    IDS_STRING106           "OpenGlass does not know how to hook your version of DWM (0x%X).\n\nWe tried to download the appropriate symbol files from Microsoft server, but it failed.\nPlease do not open a GitHub issue for this, as no support will be provided.\nUse OpenGlassGUI's symbol download feature instead.\n\nDo you want to retry it now?"
+    IDS_STRING107           "OpenGlass does not know how to hook your version of DWM (0x%X).\n\nWe tried to parse symbols files but it failed.\nDo you want to retry it now?"
+    IDS_STRING108           "OpenGlass does not know how to hook your version of DWM.\n\n!!! THIS IS NOT A BUG BUT YOUR SYSTEM IS NOT YET SUPPORTED !!!"
+    IDS_STRING109           "DWM crashed less than 15 seconds after injection, DLL injection has been suspended.\n\nClick ""Abort"" to shut down the OpenGlass service process and end all subsequent injections.\nClick ""Retry"" to inject again.\nClick ""Ignore"" to exclude this DWM process."
+    IDS_STRING110           "Reserved"
+    IDS_STRING111           "Downloading symbol files..."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STRING112           "Pending..."
+END
+
+#endif    // English (Neutral) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

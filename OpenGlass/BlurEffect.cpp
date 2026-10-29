@@ -1,0 +1,112 @@
+#include "pch.h"
+#include "BlurEffect.hpp"
+
+using namespace OpenGlass;
+
+HRESULT CBlurEffect::Initialize(ID2D1DeviceContext* context)
+{
+	m_customBlurEffect = winrt::make<CCustomBlurEffect>();
+
+	RETURN_IF_FAILED(
+		context->CreateEffect(
+			CLSID_D2D1Flood,
+			m_colorEffect.put()
+		)
+	);
+	RETURN_IF_FAILED(
+		context->CreateEffect(
+			CLSID_D2D1Composite,
+			m_compositeEffect.put()
+		)
+	);
+
+	RETURN_IF_FAILED(
+		m_compositeEffect->SetValue(
+			D2D1_COMPOSITE_PROP_MODE,
+			D2D1_COMPOSITE_MODE_SOURCE_OVER
+		)
+	);
+	m_compositeEffect->SetInputEffect(1, m_colorEffect.get());
+
+	m_initialized = true;
+
+	return S_OK;
+}
+
+HRESULT CBlurEffect::Build(
+	ID2D1DeviceContext* context,
+	ID2D1Image* inputImage,
+	const D2D1_RECT_F& imageRectangle,
+	const void* additionalParams
+)
+{
+	if (!m_initialized)
+	{
+		RETURN_IF_FAILED(Initialize(context));
+	}
+	const auto params = static_cast<const CBlurParams*>(additionalParams);
+
+	RETURN_IF_FAILED(
+		m_customBlurEffect->Build(
+			context,
+			inputImage,
+			imageRectangle,
+			additionalParams
+		)
+	);
+	const auto fullyTransparent = params->color.a == 0.f;
+	if (!fullyTransparent)
+	{
+		RETURN_IF_FAILED(
+			m_colorEffect->SetValue(
+				D2D1_FLOOD_PROP_COLOR,
+				D2D1::Vector4F(
+					params->color.r,
+					params->color.g,
+					params->color.b,
+					params->color.a
+				)
+			)
+		);
+
+		winrt::com_ptr<ID2D1Image> image{};
+		m_customBlurEffect->GetOutput(image.put());
+		m_compositeEffect->SetInput(0, image.get());
+		m_outputEffect = m_compositeEffect;
+	}
+	else
+	{
+		m_outputEffect = nullptr;
+	}
+
+	return S_OK;
+}
+
+D2D1_MATRIX_3X2_F CBlurEffect::GetOutputMatrix() const
+{
+	return m_customBlurEffect->GetOutputMatrix();
+}
+
+void CBlurEffect::GetOutput(ID2D1Image** output) const
+{
+	if (m_outputEffect)
+	{
+		m_outputEffect->GetOutput(output);
+	}
+	else
+	{
+		m_customBlurEffect->GetOutput(output);
+	}
+}
+
+void CBlurEffect::Reset()
+{
+	if (m_customBlurEffect)
+	{
+		m_customBlurEffect->Reset();
+	}
+	if (m_compositeEffect)
+	{
+		m_compositeEffect->SetInput(0, nullptr);
+	}
+}

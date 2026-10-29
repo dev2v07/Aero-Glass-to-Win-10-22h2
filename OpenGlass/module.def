@@ -1,0 +1,9 @@
+LIBRARY
+EXPORTS
+DllGetClassObject PRIVATE
+DllCanUnloadNow PRIVATE
+DllRegisterServer PRIVATE
+DllUnregisterServer PRIVATE
+
+; Windows service entrypoint (loaded by OpenGlassHost.exe)
+ServiceMain

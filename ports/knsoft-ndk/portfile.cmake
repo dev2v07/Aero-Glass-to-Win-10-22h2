@@ -1,0 +1,22 @@
+vcpkg_from_github(
+    OUT_SOURCE_PATH SOURCE_PATH
+    REPO KNSoft/KNSoft.NDK
+    REF ff409bc681deeb55885fb78ceb8adeeaaff89e96
+    SHA512 93332a08b65d90e00655c2b2554b312b38ec6a21145a3a607cf29186237228a128f8de33aee286dae44d9405eb8cc2671013c9b16d53ad6292f0e3c4812a6ada
+)
+
+set(CONSOLE_INCLUDE_DIR "${SOURCE_PATH}/Source/Include/KNSoft/NDK/3rdParty/terminal/dep/Console")
+
+set(CONIOSRV_HEADER "${CONSOLE_INCLUDE_DIR}/ConIoSrv.h")
+file(READ "${CONIOSRV_HEADER}" CONIOSRV_CONTENTS)
+string(REPLACE "#include <ntlpcapi.h>" "#include <KNSoft/NDK/Stub/ntlpcapi.h>" CONIOSRV_CONTENTS "${CONIOSRV_CONTENTS}")
+file(WRITE "${CONIOSRV_HEADER}" "${CONIOSRV_CONTENTS}")
+
+set(CONMSGL3_HEADER "${CONSOLE_INCLUDE_DIR}/conmsgl3.h")
+file(READ "${CONMSGL3_HEADER}" CONMSGL3_CONTENTS)
+string(REPLACE "#include <winconp.h>" "#include <KNSoft/NDK/3rdParty/terminal/dep/Console/winconp.h>" CONMSGL3_CONTENTS "${CONMSGL3_CONTENTS}")
+file(WRITE "${CONMSGL3_HEADER}" "${CONMSGL3_CONTENTS}")
+
+file(INSTALL "${SOURCE_PATH}/Source/Include/" DESTINATION "${CURRENT_PACKAGES_DIR}/include")
+
+file(INSTALL "${SOURCE_PATH}/LICENSE" DESTINATION "${CURRENT_PACKAGES_DIR}/share/knsoft-ndk" RENAME copyright)

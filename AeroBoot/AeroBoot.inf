@@ -1,0 +1,30 @@
+[Defines]
+  INF_VERSION                    = 0x0001001B
+  BASE_NAME                     = AeroBoot
+  FILE_GUID                     = 8B3E4C0B-44A8-4C87-9DF5-0A5A5A7A4E70
+  MODULE_TYPE                   = UEFI_APPLICATION
+  VERSION_STRING                = 0.1.0
+  ENTRY_POINT                   = UefiMain
+
+[Sources]
+  AeroBoot.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+
+[LibraryClasses]
+  BaseMemoryLib
+  DevicePathLib
+  MemoryAllocationLib
+  UefiApplicationEntryPoint
+  UefiBootServicesTableLib
+  UefiLib
+
+[Protocols]
+  gEfiGraphicsOutputProtocolGuid
+  gEfiLoadedImageProtocolGuid
+  gEfiSimpleFileSystemProtocolGuid
+
+[Guids]
+  gEfiFileInfoGuid

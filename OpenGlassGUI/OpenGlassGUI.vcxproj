@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\Common\NuGet.props" Condition="Exists('..\Common\NuGet.props')" />
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseSigned|x64">
+      <Configuration>ReleaseSigned</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{431E83FA-6D49-43E5-BB53-73DA2B428258}</ProjectGuid>
+    <RootNamespace>OpenGlassGUI</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Label="CppProject.SharedInputs">
+    <CppProjectDefines>_WINDOWS;</CppProjectDefines>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="..\Common\CppProject.Configuration.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <TargetName>AeroGlass</TargetName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="..\Common\CppProject.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalDependencies>comctl32.lib;rpcrt4.lib;winmm.lib;advapi32.lib;wsock32.lib;uxtheme.lib;powrprof.lib;wxmsw33u_stc.lib;wxscintilla.lib;wxlexilla.lib;wxmsw33u_aui.lib;wxmsw33u_adv.lib;wxmsw33u_core.lib;wxmsw33u_html.lib;wxmsw33u_propgrid.lib;wxmsw33u_richtext.lib;wxmsw33u_xrc.lib;wxbase33u_net.lib;wxbase33u_xml.lib;wxbase33u.lib;nanosvg.lib;nanosvgrast.lib;libpng16.lib;zs.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(WindowsSdkDir)Lib\$(WindowsTargetPlatformVersion)\um\$(Platform);$(VcpkgInstalledDir)\$(VcpkgTriplet)\lib;$(VcpkgInstalledDir)\$(VcpkgTriplet)\lib\vc_x64_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <UACExecutionLevel>AsInvoker</UACExecutionLevel>
+    </Link>
+    <ClCompile>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+	  <AdditionalOptions>/await %(AdditionalOptions)</AdditionalOptions>
+	  <PreprocessorDefinitions>_SILENCE_EXPERIMENTAL_COROUTINE_DEPRECATION_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+	  <AdditionalIncludeDirectories>..\Common;$(VcpkgInstalledDir)\$(VcpkgTriplet)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <!-- Define WXUSINGDLL if linking against DLL version of wxWidgets, but we used VcpkgUseStatic=true -->
+      <!-- However, vcpkg might default to valid settings. -->
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Image Include="assets\aero-glass.ico" />
+    <None Include="assets\aero-glass-dark-background.png" />
+    <None Include="assets\aero-glass-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+	<ClInclude Include="ColorizationPresets.hpp" />
+	<ClInclude Include="ColorSwatchButton.hpp" />
+    <ClInclude Include="ConfigurationMigration.hpp" />
+    <ClInclude Include="Elevation.hpp" />
+    <ClInclude Include="Diagnostics.hpp" />
+    <ClInclude Include="OpenGlassGUI.hpp" />
+    <ClInclude Include="MainFrame.hpp" />
+    <ClInclude Include="PresetPackage.hpp" />
+    <ClInclude Include="RegistryConfig.hpp" />
+    <ClInclude Include="Symbols.hpp" />
+    <ClInclude Include="UiControls.hpp" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+	<ClCompile Include="..\Common\PngAssetValidation.cpp">
+	  <PrecompiledHeader>NotUsing</PrecompiledHeader>
+	</ClCompile>
+	<ClCompile Include="..\Common\PeCodeViewIdentity.cpp">
+	  <PrecompiledHeader>NotUsing</PrecompiledHeader>
+	</ClCompile>
+	<ClCompile Include="..\Common\ThemeAtlasLayout.cpp">
+	  <PrecompiledHeader>NotUsing</PrecompiledHeader>
+	</ClCompile>
+	<ClCompile Include="ColorSwatchButton.cpp" />
+    <ClCompile Include="ConfigurationMigration.cpp" />
+    <ClCompile Include="Elevation.cpp" />
+    <ClCompile Include="Diagnostics.cpp" />
+    <ClCompile Include="OpenGlassGUI.cpp" />
+	<ClCompile Include="MainFrame.ColorPresets.cpp" />
+    <ClCompile Include="MainFrame.Presets.cpp" />
+    <ClCompile Include="MainFrame.Core.cpp" />
+    <ClCompile Include="MainFrame.State.cpp" />
+    <ClCompile Include="MainFrame.Tabs.cpp" />
+    <ClCompile Include="MainFrame.ClassicStartMenu.cpp" />
+    <ClCompile Include="FigmaIcon.cpp" />
+    <ClCompile Include="PresetPackage.cpp" />
+    <ClCompile Include="RegistryConfig.cpp" />
+    <ClCompile Include="Symbols.cpp" />
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="OpenGlassGUI.rc" />
+    <Manifest Include="OpenGlassGUI.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OpenGlassHost\OpenGlassHost.vcxproj">
+      <Project>{6C2D5B3D-4FE4-4E68-8E58-7B5A5D1A3D40}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <Target Name="CopyAeroGlassAssets" AfterTargets="Build">
+    <ItemGroup>
+      <AeroGlassNavAssets Include="$(ProjectDir)assets\nav\*.svg" />
+      <ClassicShellSkinAssets Include="$(ProjectDir)assets\classic-shell\skins\*.*" />
+      <ClassicShellLanguageAssets Include="$(ProjectDir)assets\classic-shell\language\*.*" />
+      <StartMenuLocalizationAssets Include="$(ProjectDir)..\OpenGlassStartMenu\StartMenu\StartMenuL10N.ini" />
+      <StartMenuLocalizationAssets Include="$(ProjectDir)..\OpenGlassStartMenu\StartMenu\StartMenuHelper\StartMenuHelperL10N.ini" />
+      <StartButtonAssets Include="$(ProjectDir)assets\Button\start.bmp" />
+      <Windows7CursorAssets Include="$(ProjectDir)assets\cursors\windows7\*.*" />
+    </ItemGroup>
+    <MakeDir Directories="$(OutDir)assets\nav" />
+    <MakeDir Directories="$(OutDir)assets\classic-shell\skins" />
+    <MakeDir Directories="$(OutDir)assets\classic-shell\language" />
+    <MakeDir Directories="$(OutDir)Languages" />
+    <MakeDir Directories="$(OutDir)Button" />
+    <MakeDir Directories="$(OutDir)assets\cursors\windows7" />
+    <Copy SourceFiles="@(AeroGlassNavAssets)" DestinationFolder="$(OutDir)assets\nav" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(ClassicShellSkinAssets)" DestinationFolder="$(OutDir)assets\classic-shell\skins" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(ClassicShellLanguageAssets)" DestinationFolder="$(OutDir)assets\classic-shell\language" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(ClassicShellLanguageAssets)" DestinationFolder="$(OutDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(ClassicShellLanguageAssets)" DestinationFolder="$(OutDir)Languages" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(StartMenuLocalizationAssets)" DestinationFolder="$(OutDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(StartButtonAssets)" DestinationFolder="$(OutDir)Button" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(Windows7CursorAssets)" DestinationFolder="$(OutDir)assets\cursors\windows7" SkipUnchangedFiles="true" />
+  </Target>
+  <Target Name="BuildOpenGlassStartMenuIfMissing"
+          BeforeTargets="CopyOpenGlassStartMenuArtifacts"
+          Condition="!Exists('$(ProjectDir)..\build\bin\$(Configuration)64\OpenGlassStartMenu.exe')">
+    <Message Text="OpenGlassStartMenu.exe is missing; building the Start Menu runtime before copying GUI artifacts." Importance="High" />
+    <MSBuild Projects="$(ProjectDir)..\OpenGlassStartMenu\StartMenu\StartMenu.vcxproj"
+             Targets="Build"
+             BuildInParallel="false"
+             Properties="Configuration=$(Configuration);Platform=$(Platform);PlatformToolset=$(PlatformToolset);WindowsTargetPlatformVersion=$(WindowsTargetPlatformVersion);VcpkgInstalledDir=$(VcpkgInstalledDir);VcpkgTriplet=$(VcpkgTriplet)" />
+  </Target>
+  <Target Name="CopyOpenGlassStartMenuArtifacts" AfterTargets="CopyAeroGlassAssets" Condition="Exists('$(ProjectDir)..\build\bin\$(Configuration)64')">
+    <ItemGroup>
+      <OpenGlassStartMenuBinaries Include="$(ProjectDir)..\build\bin\$(Configuration)64\*.exe" />
+      <OpenGlassStartMenuBinaries Include="$(ProjectDir)..\build\bin\$(Configuration)64\*.dll" />
+      <OpenGlassStartMenuSkins Include="$(ProjectDir)..\build\bin\Skins\*.skin*" />
+    </ItemGroup>
+    <MakeDir Directories="$(OutDir)Skins" />
+    <Copy SourceFiles="@(OpenGlassStartMenuBinaries)" DestinationFolder="$(OutDir)" SkipUnchangedFiles="true" Condition="Exists('%(OpenGlassStartMenuBinaries.Identity)')" />
+    <Copy SourceFiles="@(OpenGlassStartMenuSkins)" DestinationFolder="$(OutDir)Skins" SkipUnchangedFiles="true" />
+  </Target>
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\Common\NuGet.targets" Condition="Exists('..\Common\NuGet.targets')" />
+  </ImportGroup>
+</Project>

@@ -1,0 +1,13 @@
+interface:
+  display_name: "Maintain DWM Projections"
+  short_description: "Audit dwmcore and uDWM projection schemas"
+  default_prompt: "Use $maintain-dwm-offsets to audit the requested legacy or milcomp DWM Layout or Symbol schema items with exact-binary IDA evidence."
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "ida-pro-mcp"
+      description: "DWM binary analysis using verified explicit database sessions; audit operations remain read-only"
+
+policy:
+  allow_implicit_invocation: false
