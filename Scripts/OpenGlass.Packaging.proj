@@ -28,6 +28,10 @@
     <SignedInput Include="$(MILCompOutput)OpenGlass.dll"><Destination>$(SignedStage)milcomp\OpenGlass.dll</Destination></SignedInput>
     <SignedInput Include="$(CommonOutput)OpenGlassHost.exe"><Destination>$(SignedStage)OpenGlassHost.exe</Destination></SignedInput>
     <SignedInput Include="$(CommonOutput)AeroGlass.exe"><Destination>$(SignedStage)AeroGlass.exe</Destination></SignedInput>
+    <SignedAsset Include="$(CommonOutput)Textures\**\*"><Destination>$(SignedStage)Textures\%(RecursiveDir)%(Filename)%(Extension)</Destination></SignedAsset>
+    <SignedAsset Include="$(CommonOutput)Atlas\**\*"><Destination>$(SignedStage)Atlas\%(RecursiveDir)%(Filename)%(Extension)</Destination></SignedAsset>
+    <SignedAsset Include="$(CommonOutput)Button\**\*"><Destination>$(SignedStage)Button\%(RecursiveDir)%(Filename)%(Extension)</Destination></SignedAsset>
+    <SignedAsset Include="$(CommonOutput)Skins\**\*"><Destination>$(SignedStage)Skins\%(RecursiveDir)%(Filename)%(Extension)</Destination></SignedAsset>
     <UnsignedInput Include="$(LegacyOutput)unsigned\OpenGlass.dll"><Destination>$(UnsignedStage)legacy\OpenGlass.dll</Destination></UnsignedInput>
     <UnsignedInput Include="$(MILCompOutput)unsigned\OpenGlass.dll"><Destination>$(UnsignedStage)milcomp\OpenGlass.dll</Destination></UnsignedInput>
     <UnsignedInput Include="$(CommonOutput)unsigned\OpenGlassHost.exe"><Destination>$(UnsignedStage)OpenGlassHost.exe</Destination></UnsignedInput>
@@ -57,6 +61,7 @@
   <Target Name="StageSignedFiles" DependsOnTargets="ValidatePackagingInputs;BuildDependencies">
     <MakeDir Directories="$(SignedStage);$(SignedStage)legacy\;$(SignedStage)milcomp\;$(InstallerOutput)" />
     <Copy SourceFiles="@(SignedInput)" DestinationFiles="@(SignedInput->'%(Destination)')" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(SignedAsset)" DestinationFiles="@(SignedAsset->'%(Destination)')" SkipUnchangedFiles="true" />
   </Target>
 
   <Target Name="StageUnsignedFiles" DependsOnTargets="StageSignedFiles" Condition="'$(Configuration)'=='ReleaseSigned'">

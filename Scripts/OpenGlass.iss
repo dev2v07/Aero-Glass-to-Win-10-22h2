@@ -144,6 +144,10 @@ Source: "{#MyAppBuildPath}\legacy\OpenGlass.dll"; DestDir: "{app}"; DestName: "O
 Source: "{#MyAppBuildPath}\milcomp\OpenGlass.dll"; DestDir: "{app}"; DestName: "OpenGlass.dll"; Flags: ignoreversion restartreplace; Check: ShouldInstallMILCompDll
 Source: "{#MyAppBuildPath}\OpenGlassHost.exe"; DestDir: "{app}"; Flags: ignoreversion restartreplace
 Source: "{#MyAppBuildPath}\AeroGlass.exe"; DestDir: "{app}"; Flags: ignoreversion restartreplace
+Source: "{#MyAppBuildPath}\Textures\*"; DestDir: "{app}\Textures"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#MyAppBuildPath}\Atlas\*"; DestDir: "{app}\Atlas"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#MyAppBuildPath}\Button\*"; DestDir: "{app}\Button"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#MyAppBuildPath}\Skins\*"; DestDir: "{app}\Skins"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Dirs]
 ; Mutable application data and immutable preset deployments live outside the installation directory.
