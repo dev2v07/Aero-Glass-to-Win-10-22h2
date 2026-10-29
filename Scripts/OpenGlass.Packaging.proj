@@ -28,6 +28,14 @@
     <SignedInput Include="$(MILCompOutput)OpenGlass.dll"><Destination>$(SignedStage)milcomp\OpenGlass.dll</Destination></SignedInput>
     <SignedInput Include="$(CommonOutput)OpenGlassHost.exe"><Destination>$(SignedStage)OpenGlassHost.exe</Destination></SignedInput>
     <SignedInput Include="$(CommonOutput)AeroGlass.exe"><Destination>$(SignedStage)AeroGlass.exe</Destination></SignedInput>
+    <SignedInput Include="$(CommonOutput)OpenGlassStartMenu.exe"><Destination>$(SignedStage)OpenGlassStartMenu.exe</Destination></SignedInput>
+    <SignedInput Include="$(CommonOutput)OpenGlassStartMenuDLL.dll"><Destination>$(SignedStage)OpenGlassStartMenuDLL.dll</Destination></SignedInput>
+    <SignedInput Include="$(CommonOutput)StartMenuHelper64.dll"><Destination>$(SignedStage)StartMenuHelper64.dll</Destination></SignedInput>
+    <SignedInput Include="$(CommonOutput)StartMenuL10N.ini"><Destination>$(SignedStage)StartMenuL10N.ini</Destination></SignedInput>
+    <SignedInput Include="$(CommonOutput)StartMenuHelperL10N.ini"><Destination>$(SignedStage)StartMenuHelperL10N.ini</Destination></SignedInput>
+    <SignedInput Include="$(CommonOutput)ru-RU.dll"><Destination>$(SignedStage)ru-RU.dll</Destination></SignedInput>
+    <SignedAsset Include="$(CommonOutput)Languages\**\*"><Destination>$(SignedStage)Languages\%(RecursiveDir)%(Filename)%(Extension)</Destination></SignedAsset>
+    <SignedAsset Include="$(CommonOutput)assets\**\*"><Destination>$(SignedStage)assets\%(RecursiveDir)%(Filename)%(Extension)</Destination></SignedAsset>
     <SignedAsset Include="$(CommonOutput)Textures\**\*"><Destination>$(SignedStage)Textures\%(RecursiveDir)%(Filename)%(Extension)</Destination></SignedAsset>
     <SignedAsset Include="$(CommonOutput)Atlas\**\*"><Destination>$(SignedStage)Atlas\%(RecursiveDir)%(Filename)%(Extension)</Destination></SignedAsset>
     <SignedAsset Include="$(CommonOutput)Button\**\*"><Destination>$(SignedStage)Button\%(RecursiveDir)%(Filename)%(Extension)</Destination></SignedAsset>

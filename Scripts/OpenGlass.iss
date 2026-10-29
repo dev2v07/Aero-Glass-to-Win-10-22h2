@@ -144,6 +144,14 @@ Source: "{#MyAppBuildPath}\legacy\OpenGlass.dll"; DestDir: "{app}"; DestName: "O
 Source: "{#MyAppBuildPath}\milcomp\OpenGlass.dll"; DestDir: "{app}"; DestName: "OpenGlass.dll"; Flags: ignoreversion restartreplace; Check: ShouldInstallMILCompDll
 Source: "{#MyAppBuildPath}\OpenGlassHost.exe"; DestDir: "{app}"; Flags: ignoreversion restartreplace
 Source: "{#MyAppBuildPath}\AeroGlass.exe"; DestDir: "{app}"; Flags: ignoreversion restartreplace
+Source: "{#MyAppBuildPath}\OpenGlassStartMenu.exe"; DestDir: "{app}"; Flags: ignoreversion restartreplace
+Source: "{#MyAppBuildPath}\OpenGlassStartMenuDLL.dll"; DestDir: "{app}"; Flags: ignoreversion restartreplace
+Source: "{#MyAppBuildPath}\StartMenuHelper64.dll"; DestDir: "{app}"; Flags: ignoreversion restartreplace
+Source: "{#MyAppBuildPath}\StartMenuL10N.ini"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#MyAppBuildPath}\StartMenuHelperL10N.ini"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#MyAppBuildPath}\ru-RU.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#MyAppBuildPath}\Languages\*"; DestDir: "{app}\Languages"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#MyAppBuildPath}\assets\*"; DestDir: "{app}\assets"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "{#MyAppBuildPath}\Textures\*"; DestDir: "{app}\Textures"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "{#MyAppBuildPath}\Atlas\*"; DestDir: "{app}\Atlas"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "{#MyAppBuildPath}\Button\*"; DestDir: "{app}\Button"; Flags: ignoreversion recursesubdirs createallsubdirs
