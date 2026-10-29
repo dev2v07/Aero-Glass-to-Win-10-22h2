@@ -160,6 +160,9 @@ Source: "{#MyAppBuildPath}\Textures\*"; DestDir: "{app}\Textures"; Flags: ignore
 Source: "{#MyAppBuildPath}\Atlas\*"; DestDir: "{app}\Atlas"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "{#MyAppBuildPath}\Button\*"; DestDir: "{app}\Button"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "{#MyAppBuildPath}\Skins\*"; DestDir: "{app}\Skins"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#MyProjPath}\assets\preview1-finish.bmp"; DestDir: "{app}\assets\previews"; Flags: ignoreversion
+Source: "{#MyProjPath}\assets\preview2-finish.bmp"; DestDir: "{app}\assets\previews"; Flags: ignoreversion
+Source: "{#MyProjPath}\assets\preview3-finish.bmp"; DestDir: "{app}\assets\previews"; Flags: ignoreversion
 
 [Dirs]
 ; Mutable application data and immutable preset deployments live outside the installation directory.
@@ -180,6 +183,7 @@ Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: 
 [UninstallDelete]
 Type: filesandordirs; Name: "{commonappdata}\OpenGlass\symbols"
 Type: filesandordirs; Name: "{commonappdata}\OpenGlass\dumps"
+Type: filesandordirs; Name: "{app}\assets\previews"
 ; Clean the defaults used by older installers without touching any user-selected custom path.
 Type: filesandordirs; Name: "{app}\symbols"
 Type: filesandordirs; Name: "{app}\dumps"
@@ -232,6 +236,90 @@ Filename: "{sys}\sc.exe"; Parameters: "delete OpenGlassHost"; Flags: runhidden; 
 
 var
   InstallMILCompDll: Boolean;
+  TandemCreditLabel: TNewStaticText;
+  TandemWebsiteLabel: TNewStaticText;
+  Preview1Image: TBitmapImage;
+  Preview2Image: TBitmapImage;
+  Preview3Image: TBitmapImage;
+
+procedure OpenTandemWebsite(Sender: TObject);
+var
+  ErrorCode: Integer;
+begin
+  ShellExec('open', 'https://tandemarketing.ru', '', '', SW_SHOWNORMAL, ewNoWait, ErrorCode);
+end;
+
+procedure InitializeTandemCredit;
+begin
+  TandemCreditLabel := TNewStaticText.Create(WizardForm);
+  TandemCreditLabel.Parent := WizardForm;
+  TandemCreditLabel.Caption := 'Разработано Tandem Marketing 2026';
+  TandemCreditLabel.Font.Color := clWhite;
+  TandemCreditLabel.Font.Size := 8;
+  TandemCreditLabel.Left := WizardForm.WizardBitmapImage.Left + ScaleX(8);
+  TandemCreditLabel.Top := WizardForm.ClientHeight - ScaleY(31);
+  TandemCreditLabel.Width := ScaleX(190);
+  TandemCreditLabel.Height := ScaleY(16);
+  TandemCreditLabel.Anchors := [akLeft, akBottom];
+
+  TandemWebsiteLabel := TNewStaticText.Create(WizardForm);
+  TandemWebsiteLabel.Parent := WizardForm;
+  TandemWebsiteLabel.Caption := 'tandemarketing.ru';
+  TandemWebsiteLabel.Font.Color := clWhite;
+  TandemWebsiteLabel.Font.Size := 8;
+  TandemWebsiteLabel.Font.Style := [fsUnderline];
+  TandemWebsiteLabel.Cursor := crHand;
+  TandemWebsiteLabel.OnClick := @OpenTandemWebsite;
+  TandemWebsiteLabel.Left := TandemCreditLabel.Left;
+  TandemWebsiteLabel.Top := WizardForm.ClientHeight - ScaleY(17);
+  TandemWebsiteLabel.Width := ScaleX(150);
+  TandemWebsiteLabel.Height := ScaleY(16);
+  TandemWebsiteLabel.Anchors := [akLeft, akBottom];
+end;
+
+procedure AddFinishPreviews;
+var
+  PreviewLeft: Integer;
+  PreviewTop: Integer;
+begin
+  if Assigned(Preview1Image) then
+    Exit;
+
+  PreviewLeft := WizardForm.FinishedPage.Width - ScaleX(230) - ScaleX(18);
+  PreviewTop := ScaleY(42);
+
+  Preview1Image := TBitmapImage.Create(WizardForm.FinishedPage);
+  Preview1Image.Parent := WizardForm.FinishedPage;
+  Preview1Image.AutoSize := False;
+  Preview1Image.Stretch := True;
+  Preview1Image.SetBounds(PreviewLeft, PreviewTop, ScaleX(230), ScaleY(120));
+  Preview1Image.Bitmap.LoadFromFile(ExpandConstant('{app}\assets\previews\preview1-finish.bmp'));
+
+  Preview2Image := TBitmapImage.Create(WizardForm.FinishedPage);
+  Preview2Image.Parent := WizardForm.FinishedPage;
+  Preview2Image.AutoSize := False;
+  Preview2Image.Stretch := True;
+  Preview2Image.SetBounds(PreviewLeft, PreviewTop + ScaleY(126), ScaleX(230), ScaleY(120));
+  Preview2Image.Bitmap.LoadFromFile(ExpandConstant('{app}\assets\previews\preview2-finish.bmp'));
+
+  Preview3Image := TBitmapImage.Create(WizardForm.FinishedPage);
+  Preview3Image.Parent := WizardForm.FinishedPage;
+  Preview3Image.AutoSize := False;
+  Preview3Image.Stretch := True;
+  Preview3Image.SetBounds(PreviewLeft, PreviewTop + ScaleY(252), ScaleX(230), ScaleY(120));
+  Preview3Image.Bitmap.LoadFromFile(ExpandConstant('{app}\assets\previews\preview3-finish.bmp'));
+end;
+
+procedure InitializeWizard;
+begin
+  InitializeTandemCredit;
+end;
+
+procedure CurStepChanged(CurStep: TSetupStep);
+begin
+  if CurStep = ssPostInstall then
+    AddFinishPreviews;
+end;
 
 function InitializeSetup(): Boolean;
 var
