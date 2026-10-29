@@ -29,6 +29,10 @@ VersionInfoVersion={#MyAppVersion}
 AppVersion={#MyAppVersion}
 AppVerName={#MyAppName} v{#MyAppVersion}
 AppPublisher={#MyAppPublisher}
+VersionInfoCompany={#MyAppPublisher}
+VersionInfoDescription=Aero Glass — стеклянное оформление и встроенное меню «Пуск»
+VersionInfoProductName={#MyAppName}
+VersionInfoCopyright=Copyright (C) Tandem Marketing
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
@@ -44,7 +48,7 @@ UsePreviousGroup=yes
 AllowNoIcons=yes
 LicenseFile={#MyProjPath}\LICENSE.txt
 SetupIconFile={#MyProjPath}\OpenGlassGUI\assets\aero-glass.ico
-WizardImageFile={#MyProjPath}\assets\header.bmp
+WizardImageFile={#MyProjPath}\assets\preview2-wizard.bmp
 WizardSmallImageFile={#MyProjPath}\OpenGlassGUI\assets\aero-glass-icon.png
 OutputDir={#MyAppOutputPath}
 OutputBaseFilename={#MyAppSetupName}
@@ -169,6 +173,9 @@ Name: "{commonappdata}\OpenGlass\Presets"
 ; Remove the legacy GUI Run entry on upgrade. The interactive GUI is elevated
 ; on demand; the automatic OpenGlassHost service owns background startup.
 Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "AeroGlass"; Flags: deletevalue
+Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "OpenGlassGUI"; Flags: deletevalue
+Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "Aero-Glass-to-Win-10"; Flags: deletevalue
+Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "Aero Glass Start Menu"; ValueData: "{app}\OpenGlassStartMenu.exe -autorun"; Flags: uninsdeletevalue
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{commonappdata}\OpenGlass\symbols"
@@ -215,8 +222,6 @@ Filename: "{sys}\sc.exe"; Parameters: "create OpenGlassHost binPath= ""{app}\Ope
 Filename: "{sys}\sc.exe"; Parameters: "description OpenGlassHost ""{cm:ServiceDescription}"""; Flags: runhidden
 ; Start the service (Automatic start, no checkbox)
 Filename: "{sys}\sc.exe"; Parameters: "start OpenGlassHost"; Flags: runhidden nowait
-; Launch GUI (Optional post-install)
-Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchOpenGlassGUI}"; Flags: postinstall nowait runascurrentuser; Check: not WizardSilent
 
 [UninstallRun]
 Filename: "{sys}\sc.exe"; Parameters: "stop OpenGlassHost"; Flags: runhidden waituntilterminated; RunOnceId: "StopService"
