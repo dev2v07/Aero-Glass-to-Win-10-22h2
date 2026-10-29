@@ -254,7 +254,7 @@ begin
   TandemCreditLabel := TNewStaticText.Create(WizardForm);
   TandemCreditLabel.Parent := WizardForm;
   TandemCreditLabel.Caption := 'Разработано Tandem Marketing 2026';
-  TandemCreditLabel.Font.Color := clWhite;
+  TandemCreditLabel.Font.Color := clBlack;
   TandemCreditLabel.Font.Size := 8;
   TandemCreditLabel.Left := WizardForm.WizardBitmapImage.Left + ScaleX(8);
   TandemCreditLabel.Top := WizardForm.ClientHeight - ScaleY(31);
@@ -265,7 +265,7 @@ begin
   TandemWebsiteLabel := TNewStaticText.Create(WizardForm);
   TandemWebsiteLabel.Parent := WizardForm;
   TandemWebsiteLabel.Caption := 'tandemarketing.ru';
-  TandemWebsiteLabel.Font.Color := clWhite;
+  TandemWebsiteLabel.Font.Color := clBlack;
   TandemWebsiteLabel.Font.Size := 8;
   TandemWebsiteLabel.Font.Style := [fsUnderline];
   TandemWebsiteLabel.Cursor := crHand;
