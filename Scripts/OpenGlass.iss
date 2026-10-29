@@ -68,6 +68,7 @@ UpdateUninstallLogAppName=yes
 UsePreviousLanguage=yes
 
 [Languages]
+#if 0
 Name: "arabic"; MessagesFile: "compiler:Languages\Arabic.isl"
 Name: "armenian"; MessagesFile: "compiler:Languages\Armenian.isl"
 Name: "brazilianportuguese"; MessagesFile: "compiler:Languages\BrazilianPortuguese.isl"
@@ -94,7 +95,9 @@ Name: "korean"; MessagesFile: "compiler:Languages\Korean.isl"
 Name: "norwegian"; MessagesFile: "compiler:Languages\Norwegian.isl"
 Name: "polish"; MessagesFile: "compiler:Languages\Polish.isl"
 Name: "portuguese"; MessagesFile: "compiler:Languages\Portuguese.isl"
+#endif
 Name: "russian"; MessagesFile: "compiler:Languages\Russian.isl"
+#if 0
 Name: "slovak"; MessagesFile: "compiler:Languages\Slovak.isl"
 Name: "slovenian"; MessagesFile: "compiler:Languages\Slovenian.isl"
 Name: "spanish"; MessagesFile: "compiler:Languages\Spanish.isl"
@@ -102,6 +105,7 @@ Name: "swedish"; MessagesFile: "compiler:Languages\Swedish.isl"
 Name: "tamil"; MessagesFile: "compiler:Languages\Tamil.isl"
 Name: "turkish"; MessagesFile: "compiler:Languages\Turkish.isl"
 Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
+#endif
 
 [CustomMessages]
 LaunchOpenGlassGUI=Запустить Aero Glass
