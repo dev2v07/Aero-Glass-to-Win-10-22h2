@@ -326,8 +326,37 @@ begin
   InitializeTandemCredit;
 end;
 
+procedure RemoveLegacyGuiAutostart;
+begin
+  // Explicitly remove legacy GUI autorun values during upgrades. The setup
+  // runs elevated, so do this in code as well as in [Registry] to cover
+  // installations created by older releases and split-token HKCU behavior.
+  RegDeleteValue(HKEY_CURRENT_USER,
+    'Software\Microsoft\Windows\CurrentVersion\Run', 'AeroGlass');
+  RegDeleteValue(HKEY_CURRENT_USER,
+    'Software\Microsoft\Windows\CurrentVersion\Run', 'OpenGlassGUI');
+  RegDeleteValue(HKEY_CURRENT_USER,
+    'Software\Microsoft\Windows\CurrentVersion\Run', 'Aero-Glass-to-Win-10');
+  RegDeleteValue(HKEY_LOCAL_MACHINE,
+    'Software\Microsoft\Windows\CurrentVersion\Run', 'AeroGlass');
+  RegDeleteValue(HKEY_LOCAL_MACHINE,
+    'Software\Microsoft\Windows\CurrentVersion\Run', 'OpenGlassGUI');
+  RegDeleteValue(HKEY_LOCAL_MACHINE,
+    'Software\Microsoft\Windows\CurrentVersion\Run', 'Aero-Glass-to-Win-10');
+  RegDeleteValue(HKEY_LOCAL_MACHINE,
+    'Software\Microsoft\Windows\CurrentVersion\Run', 'Aero Glass Start Menu');
+
+  // Recreate only the intended lazy Start Menu autorun entry.
+  RegWriteStringValue(HKEY_CURRENT_USER,
+    'Software\Microsoft\Windows\CurrentVersion\Run',
+    'Aero Glass Start Menu',
+    ExpandConstant('"{app}\OpenGlassStartMenu.exe" -autorun'));
+end;
+
 procedure CurStepChanged(CurStep: TSetupStep);
 begin
+  if CurStep = ssInstall then
+    RemoveLegacyGuiAutostart;
   if CurStep = ssPostInstall then
     AddFinishPreviews;
 end;
