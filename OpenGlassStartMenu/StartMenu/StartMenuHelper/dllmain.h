@@ -10,3 +10,6 @@ public :
 extern CStartMenuHelperModule _AtlModule;
 
 void WaitDllInitThread( void );
+// Explorer calls the COM entry point synchronously. Never make that caller
+// wait forever if the background initialization is delayed or cannot finish.
+bool TryWaitDllInitThread( DWORD timeout );

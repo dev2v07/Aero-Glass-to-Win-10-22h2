@@ -102,6 +102,26 @@ void WaitDllInitThread( void )
 	LogToFile(STARTUP_LOG,L"StartMenuHelper: WaitDllInitThread");
 }
 
+bool TryWaitDllInitThread( DWORD timeout )
+{
+	ATLASSERT(g_DllInitThread);
+	if (!g_DllInitThread)
+		return false;
+
+	DWORD result=WaitForSingleObject(g_DllInitThread,timeout);
+	if (result==WAIT_OBJECT_0)
+	{
+		LogToFile(STARTUP_LOG,L"StartMenuHelper: initialization completed");
+		return true;
+	}
+
+	if (result==WAIT_TIMEOUT)
+		LogToFile(STARTUP_LOG,L"StartMenuHelper: initialization timed out");
+	else
+		LogToFile(STARTUP_LOG,L"StartMenuHelper: initialization wait failed: 0x%08X",GetLastError());
+	return false;
+}
+
 // DLL Entry Point
 extern "C" BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
 {

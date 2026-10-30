@@ -205,9 +205,13 @@ static void StartStartMenu( void )
 // Returns a class factory to create an object of the requested type
 STDAPI DllGetClassObject(REFCLSID rclsid, REFIID riid, LPVOID* ppv)
 {
-	WaitDllInitThread();
 	if (rclsid==g_EmulationClsid)
 	{
+		// This entry point is called synchronously by Explorer. A stalled
+		// initialization must fail the activation, not stall Explorer forever.
+		if (!TryWaitDllInitThread(2000))
+			return E_PENDING;
+
 		LogToFile(STARTUP_LOG,L"StartMenuHelper: DllGetClassObject1");
 		HRESULT res=E_FAIL;
 		if (!g_ExplorerModule)

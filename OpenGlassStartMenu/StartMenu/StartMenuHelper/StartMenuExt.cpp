@@ -77,7 +77,10 @@ HRESULT WINAPI CStartMenuExt::UpdateRegistry( BOOL bRegister )
 
 STDMETHODIMP CStartMenuExt::Initialize( PCIDLIST_ABSOLUTE pidlFolder, IDataObject *pData, HKEY hkey )
 {
-	WaitDllInitThread();
+	// Context-menu activation runs on an Explorer thread. Do not let a
+	// delayed background initialization freeze the shell indefinitely.
+	if (!TryWaitDllInitThread(2000))
+		return E_FAIL;
 	LoadSettings();
 	s_ShellFormat=RegisterClipboardFormat(CFSTR_SHELLIDLIST);
 	if (GetSettingBool(L"DisablePinExt"))
