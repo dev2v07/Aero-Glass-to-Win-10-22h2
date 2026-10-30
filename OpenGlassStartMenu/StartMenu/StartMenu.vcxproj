@@ -97,6 +97,7 @@
     <ProjectReference Include="..\Lib\Lib.vcxproj">
       <Project>{d42fe717-485b-492d-884a-1999f6d51154}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Properties>Configuration=$(Configuration);Platform=$(Platform)</Properties>
     </ProjectReference>
     <ProjectReference Condition="'$(Platform)'=='Win32'" Include="..\Skins\ClassicSkin7\ClassicSkin7.vcxproj">
       <Project>{31c016fb-9ea1-4af5-987a-37210c04da06}</Project>
@@ -181,9 +182,11 @@
     <ProjectReference Include="StartMenuDLL\StartMenuDLL.vcxproj">
       <Project>{85deecbb-1f9b-4983-9d54-3bf42182b7e7}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Properties>Configuration=$(Configuration);Platform=$(Platform)</Properties>
     </ProjectReference>
     <ProjectReference Include="StartMenuHelper\StartMenuHelper.vcxproj">
       <Project>{a42c6159-aca8-46d1-a0fb-19c398b137d5}</Project>
+      <Properties>Configuration=$(Configuration);Platform=$(Platform)</Properties>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

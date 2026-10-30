@@ -148,6 +148,7 @@
     <ProjectReference Include="..\..\Lib\Lib.vcxproj">
       <Project>{d42fe717-485b-492d-884a-1999f6d51154}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Properties>Configuration=$(Configuration);Platform=$(Platform)</Properties>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

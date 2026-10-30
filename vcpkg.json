@@ -1,6 +1,7 @@
 {
   "dependencies": [
     "wxwidgets",
+    "zlib",
     "wil",
     "knsoft-slimdetours",
     "nlohmann-json"
