@@ -178,7 +178,11 @@ Name: "{commonappdata}\OpenGlass\Presets"
 Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "AeroGlass"; Flags: deletevalue
 Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "OpenGlassGUI"; Flags: deletevalue
 Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "Aero-Glass-to-Win-10"; Flags: deletevalue
-Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "Aero Glass Start Menu"; ValueData: """{app}\OpenGlassStartMenu.exe"" -autorun"; Flags: uninsdeletevalue
+Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "AeroGlass"; Flags: deletevalue
+Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "OpenGlassGUI"; Flags: deletevalue
+Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "Aero-Glass-to-Win-10"; Flags: deletevalue
+Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "Aero Glass Start Menu"; Flags: deletevalue
+Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "Aero Glass Start Menu"; ValueData: """{app}\OpenGlassStartMenu.exe"" -autorun"; Flags: uninsdeletevalue
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{commonappdata}\OpenGlass\symbols"
