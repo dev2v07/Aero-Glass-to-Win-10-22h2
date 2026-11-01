@@ -182,7 +182,9 @@ Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: 
 Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "OpenGlassGUI"; Flags: deletevalue
 Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "Aero-Glass-to-Win-10"; Flags: deletevalue
 Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "Aero Glass Start Menu"; Flags: deletevalue
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "Aero Glass Start Menu"; ValueData: """{app}\OpenGlassStartMenu.exe"" -autorun"; Flags: uninsdeletevalue
+; The Start Menu component is registered as a limited scheduled task below.
+; Keep cleaning the old Run value from releases that used it.
+Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "Aero Glass Start Menu"; Flags: deletevalue
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{commonappdata}\OpenGlass\symbols"
@@ -234,6 +236,7 @@ Filename: "{sys}\sc.exe"; Parameters: "start OpenGlassHost"; Flags: runhidden no
 [UninstallRun]
 Filename: "{sys}\sc.exe"; Parameters: "stop OpenGlassHost"; Flags: runhidden waituntilterminated; RunOnceId: "StopService"
 Filename: "{sys}\taskkill.exe"; Parameters: "/IM ""{#MyAppExeName}"" /F"; Flags: runhidden; RunOnceId: "KillGUI"
+Filename: "{sys}\schtasks.exe"; Parameters: "/Delete /TN ""Aero Glass Start Menu"" /F"; Flags: runhidden waituntilterminated; RunOnceId: "DeleteStartMenuTask"
 Filename: "{sys}\sc.exe"; Parameters: "delete OpenGlassHost"; Flags: runhidden; RunOnceId: "DeleteService"
 
 [Code]
@@ -346,17 +349,39 @@ begin
   RegDeleteValue(HKEY_LOCAL_MACHINE,
     'Software\Microsoft\Windows\CurrentVersion\Run', 'Aero Glass Start Menu');
 
-  // Recreate only the intended lazy Start Menu autorun entry.
-  RegWriteStringValue(HKEY_CURRENT_USER,
-    'Software\Microsoft\Windows\CurrentVersion\Run',
-    'Aero Glass Start Menu',
-    ExpandConstant('"{app}\OpenGlassStartMenu.exe" -autorun'));
+end;
+
+function CreateLazyStartMenuTask: Boolean;
+var
+  ResultCode: Integer;
+  Params: String;
+begin
+  // The DWM engine is already owned by OpenGlassHost as a service. This task
+  // starts only the user-session Start Menu component with limited rights.
+  Params := '/Create /SC ONLOGON /TN "Aero Glass Start Menu"' +
+    ' /TR ""' + ExpandConstant('{app}\OpenGlassStartMenu.exe') +
+    '"" -autorun" /RL LIMITED /IT /F';
+  Result := Exec(ExpandConstant('{sys}\schtasks.exe'), Params, '',
+    SW_HIDE, ewWaitUntilTerminated, ResultCode) and (ResultCode = 0);
+  if Result then
+    Result := Exec(ExpandConstant('{sys}\schtasks.exe'),
+      '/Query /TN "Aero Glass Start Menu"', '',
+      SW_HIDE, ewWaitUntilTerminated, ResultCode) and (ResultCode = 0);
+  if Result then
+    Log('Created limited Start Menu logon task.')
+  else
+    Log(Format('Could not create Start Menu logon task (code %d).', [ResultCode]));
 end;
 
 procedure CurStepChanged(CurStep: TSetupStep);
 begin
   if CurStep = ssInstall then
     RemoveLegacyGuiAutostart;
+  if CurStep = ssPostInstall then
+  begin
+    if not CreateLazyStartMenuTask then
+      MsgBox('Не удалось создать фоновый запуск меню Пуск. Движок Aero Glass установлен как служба, но меню Пуск потребуется запустить вручную.', mbError, MB_OK);
+  end;
   if CurStep = ssPostInstall then
     AddFinishPreviews;
 end;
